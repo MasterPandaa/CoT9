@@ -1,6 +1,6 @@
 import random
-import pygame
 
+import pygame
 
 # -----------------------------
 # Konstanta dasar
@@ -72,7 +72,9 @@ def handle_ai(ai: pygame.Rect, ball: pygame.Rect):
         ai.bottom = HEIGHT
 
 
-def reflect_ball_from_paddle(ball: pygame.Rect, paddle: pygame.Rect, vel: pygame.Vector2, is_left_paddle: bool) -> pygame.Vector2:
+def reflect_ball_from_paddle(
+    ball: pygame.Rect, paddle: pygame.Rect, vel: pygame.Vector2, is_left_paddle: bool
+) -> pygame.Vector2:
     """
     Pantulkan bola ketika menabrak paddle.
     Modifikasi vy berdasarkan offset tumbukan relatif terhadap pusat paddle.
@@ -97,7 +99,9 @@ def reflect_ball_from_paddle(ball: pygame.Rect, paddle: pygame.Rect, vel: pygame
     return vel
 
 
-def update_ball(ball: pygame.Rect, vel: pygame.Vector2, player: pygame.Rect, ai: pygame.Rect) -> pygame.Vector2:
+def update_ball(
+    ball: pygame.Rect, vel: pygame.Vector2, player: pygame.Rect, ai: pygame.Rect
+) -> pygame.Vector2:
     # Pergerakan
     ball.x += int(vel.x)
     ball.y += int(vel.y)
@@ -138,9 +142,18 @@ def main():
     small_font = pygame.font.Font(None, 28)
 
     # Objek
-    player = pygame.Rect(MARGIN, HEIGHT // 2 - PADDLE_HEIGHT // 2, PADDLE_WIDTH, PADDLE_HEIGHT)
-    ai = pygame.Rect(WIDTH - MARGIN - PADDLE_WIDTH, HEIGHT // 2 - PADDLE_HEIGHT // 2, PADDLE_WIDTH, PADDLE_HEIGHT)
-    ball = pygame.Rect(WIDTH // 2 - BALL_SIZE // 2, HEIGHT // 2 - BALL_SIZE // 2, BALL_SIZE, BALL_SIZE)
+    player = pygame.Rect(
+        MARGIN, HEIGHT // 2 - PADDLE_HEIGHT // 2, PADDLE_WIDTH, PADDLE_HEIGHT
+    )
+    ai = pygame.Rect(
+        WIDTH - MARGIN - PADDLE_WIDTH,
+        HEIGHT // 2 - PADDLE_HEIGHT // 2,
+        PADDLE_WIDTH,
+        PADDLE_HEIGHT,
+    )
+    ball = pygame.Rect(
+        WIDTH // 2 - BALL_SIZE // 2, HEIGHT // 2 - BALL_SIZE // 2, BALL_SIZE, BALL_SIZE
+    )
 
     # Skor
     score_player = 0
@@ -165,7 +178,9 @@ def main():
         # 3) Skor (bola keluar batas kiri/kanan)
         if ball.right < 0:
             score_ai += 1
-            ball_vel = reset_ball(ball, direction=+1)  # servis ke kanan (ke arah pemain)
+            ball_vel = reset_ball(
+                ball, direction=+1
+            )  # servis ke kanan (ke arah pemain)
         elif ball.left > WIDTH:
             score_player += 1
             ball_vel = reset_ball(ball, direction=-1)  # servis ke kiri (ke arah AI)
@@ -182,7 +197,9 @@ def main():
         screen.blit(score_text, score_text.get_rect(center=(WIDTH // 2, 40)))
 
         # Bantuan kontrol
-        help_text = small_font.render("Controls: W/S atau Panah Up/Down | ESC tutup window", True, (200, 200, 200))
+        help_text = small_font.render(
+            "Controls: W/S atau Panah Up/Down | ESC tutup window", True, (200, 200, 200)
+        )
         screen.blit(help_text, (WIDTH // 2 - help_text.get_width() // 2, HEIGHT - 36))
 
         pygame.display.flip()
